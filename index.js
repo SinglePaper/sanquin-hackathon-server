@@ -53,6 +53,7 @@ app.post('/sendNotification', (req, res) => {
         });
 });
 
+
 const server = app.listen(port, () => {
   console.log(`Listening on ${port}`)
 })

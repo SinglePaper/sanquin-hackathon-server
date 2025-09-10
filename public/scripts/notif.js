@@ -12,7 +12,9 @@ function askNotificationPermission() {
     console.log(permission)
     notificationBtn.style.display = permission === "granted" ? "none" : "block";
     if (permission === "granted") {
+        console.log("1 - Granted")
         if ('serviceWorker' in navigator) {
+            console.log("2 - Navigator")
             navigator.serviceWorker.ready.then(function(registration) {
                 registration.pushManager.subscribe({
                     userVisibleOnly: true,

@@ -1,12 +1,15 @@
 const express = require('express')
 const path = require('path')
 const webPush = require('web-push');
+const bodyParser = require('body-parser');
 
 webPush.setVapidDetails(
     'mailto:sanquinhackathon@sjhmail.nl', // Your contact email
     process.env.vapidPublic,
     process.env.vapidPrivate
 );
+
+app.use(bodyParser.json());
 
 app.post('/subscribe', (req, res) => {
     const subscription = req.body;

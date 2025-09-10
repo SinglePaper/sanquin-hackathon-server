@@ -1,0 +1,9 @@
+SHORTCOMINGS:
+
+- blood stock level is about the entire country, not per hospital
+- no information on how many donors per blood type are necessary for a days supply
+- notifications are send to everyone
+- too little data to train on
+- no information about how many appointments are scheduled per day
+- missing hospital data
+- data is per week

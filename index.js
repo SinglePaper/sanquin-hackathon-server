@@ -8,12 +8,7 @@ webPush.setVapidDetails(
     process.env.vapidPrivate
 );
 
-webPush.setVapidDetails(
-    'mailto:sanquinhackathon@sjhmail.nl', // Your contact email
-    process.env.vapidPublic,
-    process.env.vapidPrivate
-);
-
+console.log(process.env.vapidPublic, process.env.vapidPrivate)
 
 const port = process.env.PORT || 5006
 

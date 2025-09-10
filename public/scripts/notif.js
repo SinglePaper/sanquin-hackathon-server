@@ -16,6 +16,7 @@ function askNotificationPermission() {
         if ('serviceWorker' in navigator) {
             console.log("2 - Navigator")
             navigator.serviceWorker.ready.then(function(registration) {
+                console.log("3 - Service Worker")
                 registration.pushManager.subscribe({
                     userVisibleOnly: true,
                     applicationServerKey: urlB64ToUint8Array('BGDatyq4EYbXYvEwYe8Hsfm7yA1LS8BUcFzwqwmG5fOAL6bsoia32SXcGMnmxqkfIH2ALWUtreWTgRYDaQRl6zk')

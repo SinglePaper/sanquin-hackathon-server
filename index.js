@@ -2,9 +2,6 @@ const express = require('express')
 const path = require('path')
 const webPush = require('web-push');
 
-const vapidKeys = webPush.generateVAPIDKeys();
-
-
 webPush.setVapidDetails(
     'mailto:sanquinhackathon@sjhmail.nl', // Your contact email
     process.env.vapidPublic,

@@ -7,36 +7,35 @@ function askNotificationPermission() {
     console.log("This browser does not support notifications.");
     return;
   }
-  Notification.requestPermission().then((permission) => {
-    // set the button to shown or hidden, depending on what the user answers
-    console.log(permission)
-    notificationBtn.style.display = permission === "granted" ? "none" : "block";
-    if (permission === "granted") {
-        console.log("1 - Granted")
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('scripts/service-worker.js')
-            .then(function(registration) {
-                console.log('Service Worker registered with scope:', registration.scope);
-            })
-            .catch(function(error) {
-                console.error('Service Worker registration failed:', error);
-            });
+    Notification.requestPermission().then((permission) => {
+        console.log(permission);
+        notificationBtn.style.display = permission === "granted" ? "none" : "block";
+        if (permission === "granted") {
+            console.log("1 - Granted");
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('scripts/service-worker.js', { scope: '/' })
+                .then(function(registration) {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                    return navigator.serviceWorker.ready;
+                })
+                .then(function(registration) {
+                    return registration.pushManager.subscribe({
+                        userVisibleOnly: true,
+                        applicationServerKey: urlB64ToUint8Array('BGDatyq4EYbXYvEwYe8Hsfm7yA1LS8BUcFzwqwmG5fOAL6bsoia32SXcGMnmxqkfIH2ALWUtreWTgRYDaQRl6zk')
+                    });
+                })
+                .then(function(subscription) {
+                    console.log('User is subscribed:', subscription);
+                    // Send subscription to your server
+                })
+                .catch(function(err) {
+                    console.log('Failed to subscribe the user: ', err);
+                });
+            }
+            sendNotification();
         }
-        navigator.serviceWorker.ready.then(function(registration) {
-            registration.pushManager.subscribe({
-                userVisibleOnly: true,
-                applicationServerKey: urlB64ToUint8Array('BGDatyq4EYbXYvEwYe8Hsfm7yA1LS8BUcFzwqwmG5fOAL6bsoia32SXcGMnmxqkfIH2ALWUtreWTgRYDaQRl6zk')
-            }).then(function(subscription) {
-                console.log('User is subscribed:', subscription);
-                // Send subscription to your server
-            }).catch(function(err) {
-                console.log('Failed to subscribe the user: ', err);
-            });
-        });
+    });
 
-        sendNotification()
-    }
-  });
 }
 
 function sendNotification() {

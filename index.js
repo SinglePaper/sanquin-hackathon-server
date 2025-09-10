@@ -4,19 +4,17 @@ const webPush = require('web-push');
 
 const vapidKeys = webPush.generateVAPIDKeys();
 
-console.log('Public VAPID Key:', vapidKeys.publicKey);
-console.log('Private VAPID Key:', vapidKeys.privateKey);
 
 webPush.setVapidDetails(
     'mailto:sanquinhackathon@sjhmail.nl', // Your contact email
-    vapidKeys.publicKey,
-    vapidKeys.privateKey
+    process.env.vapidPublic,
+    process.env.vapidPrivate
 );
 
 webPush.setVapidDetails(
     'mailto:sanquinhackathon@sjhmail.nl', // Your contact email
-    vapidKeys.publicKey,
-    vapidKeys.privateKey
+    process.env.vapidPublic,
+    process.env.vapidPrivate
 );
 
 

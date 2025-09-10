@@ -9,6 +9,23 @@ webPush.setVapidDetails(
     process.env.vapidPrivate
 );
 
+
+
+console.log(process.env.vapidPublic, process.env.vapidPrivate)
+
+const port = process.env.PORT || 5006
+
+const app = express()
+
+app.use(express.static(path.join(__dirname, 'public')))
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'ejs')
+
+app.get('/', (req, res) => {
+  console.log(`Rendering 'pages/index' for route '/'`)
+  res.render('pages/index')
+})
+
 app.use(bodyParser.json());
 
 app.post('/subscribe', (req, res) => {
@@ -35,21 +52,6 @@ app.post('/sendNotification', (req, res) => {
             res.sendStatus(500);
         });
 });
-
-console.log(process.env.vapidPublic, process.env.vapidPrivate)
-
-const port = process.env.PORT || 5006
-
-const app = express()
-
-app.use(express.static(path.join(__dirname, 'public')))
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'ejs')
-
-app.get('/', (req, res) => {
-  console.log(`Rendering 'pages/index' for route '/'`)
-  res.render('pages/index')
-})
 
 const server = app.listen(port, () => {
   console.log(`Listening on ${port}`)

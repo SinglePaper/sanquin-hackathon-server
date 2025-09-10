@@ -14,7 +14,7 @@ function askNotificationPermission() {
     if (permission === "granted") {
         console.log("1 - Granted")
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/service-worker.js')
+            navigator.serviceWorker.register('scripts/service-worker.js')
             .then(function(registration) {
                 console.log('Service Worker registered with scope:', registration.scope);
             })

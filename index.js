@@ -8,6 +8,31 @@ webPush.setVapidDetails(
     process.env.vapidPrivate
 );
 
+app.post('/subscribe', (req, res) => {
+    const subscription = req.body;
+
+    // Store subscription in your database or in-memory storage
+    console.log('User subscribed:', subscription);
+
+    res.status(201).json({});
+});
+
+// Endpoint to send a push notification
+app.post('/sendNotification', (req, res) => {
+    const subscription = req.body.subscription;
+    const payload = JSON.stringify({ title: 'Hello!', body: 'This is a push notification.' });
+
+    webPush.sendNotification(subscription, payload)
+        .then(response => {
+            console.log('Notification sent successfully:', response);
+            res.status(200).json({ success: true });
+        })
+        .catch(error => {
+            console.error('Error sending notification:', error);
+            res.sendStatus(500);
+        });
+});
+
 console.log(process.env.vapidPublic, process.env.vapidPrivate)
 
 const port = process.env.PORT || 5006

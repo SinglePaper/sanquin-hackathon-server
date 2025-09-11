@@ -32,16 +32,35 @@ function askNotificationPermission() {
                     console.log('Failed to subscribe the user: ', err);
                 });
             }
-            sendNotification();
+            sendNotification(0);
         }
     });
 
 }
 
-function sendNotification() {
-    const img = "assets/sad_blood.png";
+var notif_zero = document.getElementById("sendNotification0") 
+var notif_one = document.getElementById("sendNotification1") 
+var notif_two = document.getElementById("sendNotification2") 
+
+
+function sendNotification(urgency) {
+    if (urgency > 0) {
+        var img = "assets/sad_blood.png";
+    } else {
+        var img = "assets/happy_blood.png";
+    }
     const blood_type = "O+"
-    const text = `HEY! Gimme your ${blood_type} blood!`;
+    switch(urgency){
+        case 0: // Control
+            var text = `${blood_type} blood needed! Donate today and help save lives. Schedule now!`;
+            break;
+        case 1: // Shortage
+            var text = `Critical shortage of ${blood_type} blood! Your help is urgently needed. Donate now to save lives!`;
+            break
+        case 2: // Prediction
+            var text = `Upcoming drop in ${blood_type} blood supply expected! Donate today to ensure we're prepared!`;
+            break
+    }
     const notification = new Notification("Blood Donation Center", { body: text, icon: img });
 }
 
